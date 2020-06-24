@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import api from './services/api'
 import "./styles.css";
 
-
 function App() {
 
   const [repositories, setRepositories] = useState([]);
@@ -35,22 +34,19 @@ function App() {
   return (
     <div>
       <ul data-testid="repository-list">
-        {!repositories ? <> Lista de repositórios vazia</> : repositories.map((repositorie) => (
-          <li key={repositorie.id}>
-            <p>{repositorie.id}</p>
-            <p>{repositorie.title}</p>
-            <p>{repositorie.url}</p>
-            <p>{repositorie.techs}</p>
-            <p>{repositorie.likes}</p>
-            < button onClick={() => handleRemoveRepository(repositorie.id)}>
+        {repositories.map(repository => (
+          <li key={repository.id}>
+            {repository.title}
+
+            <button onClick={() => handleRemoveRepository(1)}>
               Remover
-          </button>
+            </button>
           </li>
         ))}
       </ul>
 
       <button onClick={handleAddRepository}>Adicionar</button>
-    </div >
+    </div>
   );
 }
 
