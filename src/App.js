@@ -34,19 +34,20 @@ function App() {
   return (
     <div>
       <ul data-testid="repository-list">
-        {repositories.map(repository => (
+        {!repositories ? <></> : repositories.map(repository => (
           <li key={repository.id}>
-            {repository.title}
+            {String(repository.title)}
 
-            <button onClick={() => handleRemoveRepository(1)}>
+            <button onClick={() => handleRemoveRepository(repository.id)}>
               Remover
             </button>
           </li>
-        ))}
-      </ul>
+        ))
+        }
+      </ul >
 
       <button onClick={handleAddRepository}>Adicionar</button>
-    </div>
+    </div >
   );
 }
 
