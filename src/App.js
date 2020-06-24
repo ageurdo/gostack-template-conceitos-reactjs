@@ -11,24 +11,30 @@ function App() {
   }, [])
 
   async function getData() {
-
     await api.get('/repositories')
       .then(response => setRepositories(response.data))
   }
 
   async function handleAddRepository() {
-    let newStaticObject = {
-      'title': 'Novo item',
-      'url': 'https://github.com/Rocketseat/bootcamp-gostack-desafios/tree/master/desafio-conceitos-reactjs',
-      'techs': ['Axios', 'React JS', 'CSS']
-    };
-    await api.post('/repositories', newStaticObject);
-    getData();
+    try {
+      let newStaticObject = {
+        title: 'Novo item',
+        url: 'https://github.com/Rocketseat/bootcamp-gostack-desafios/tree/master/desafio-conceitos-reactjs',
+        techs: ['Axios', 'React JS', 'CSS']
+      };
+
+      const response = await api.post('/repositories', newStaticObject);
+
+      setRepositories([...repositories, response.data]);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
 
   async function handleRemoveRepository(id) {
     await api.delete(`/repositories/${id}`)
-    getData();
+    setRepositories(repositories.filter((repository) => repository.id !== id));
   }
 
   return (
